@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.9.13 on win32)" generated="20230328 11:16:05.988" rpa="false" schemaversion="3">
+<suite id="s1" name="API testing" source="D:\VS_Code\TestCases\API_testing.robot">
+<test id="s1-t1" name="Get Active power from the API" line="8">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230328 11:16:06.242" level="INFO">Creating Session using : alias=mysession, url=http://10.3.101.20:5530/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230328 11:16:06.242" endtime="20230328 11:16:06.242"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>${obis_code}</arg>
+<arg>params=ip=${ip_address}&amp;port=4059</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230328 11:16:09.998" level="INFO">GET Request : url=http://10.3.101.20:5530/api/1.0.1.7.0.255?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ path_url=/api/1.0.1.7.0.255?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230328 11:16:09.998" level="INFO">GET Response : url=http://10.3.101.20:5530/api/1.0.1.7.0.255?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ status=200, reason=OK 
+ headers={'Transfer-Encoding': 'chunked', 'Content-Type': 'application/json; charset=utf-8', 'Server': 'Microsoft-IIS/10.0', 'X-Powered-By': 'ASP.NET', 'Date': 'Tue, 28 Mar 2023 05:46:07 GMT'} 
+ body={"Active Power-W":"680"} 
+ </msg>
+<msg timestamp="20230328 11:16:09.998" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230328 11:16:06.243" endtime="20230328 11:16:09.998"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230328 11:16:09.999" level="INFO">${status} = 200</msg>
+<status status="PASS" starttime="20230328 11:16:09.999" endtime="20230328 11:16:09.999"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status}</arg>
+<arg>200</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230328 11:16:10.000" endtime="20230328 11:16:10.000"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230328 11:16:10.000" endtime="20230328 11:16:10.001"/>
+</kw>
+<status status="PASS" starttime="20230328 11:16:06.237" endtime="20230328 11:16:10.001"/>
+</test>
+<test id="s1-t2" name="Get Active power with invalid obis code from the API" line="16">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230328 11:16:10.002" level="INFO">Creating Session using : alias=mysession, url=http://10.3.101.20:5530/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230328 11:16:10.002" endtime="20230328 11:16:10.002"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>/1.0.1.7.0.254</arg>
+<arg>params=ip=${ip_address}&amp;port=4059</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230328 11:16:10.246" level="INFO">GET Request : url=http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ path_url=/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230328 11:16:10.246" level="INFO">GET Response : url=http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ status=404, reason=Not Found 
+ headers={'Transfer-Encoding': 'chunked', 'Server': 'Microsoft-IIS/10.0', 'X-Powered-By': 'ASP.NET', 'Date': 'Tue, 28 Mar 2023 05:46:07 GMT'} 
+ body=None 
+ </msg>
+<msg timestamp="20230328 11:16:10.246" level="FAIL">HTTPError: 404 Client Error: Not Found for url: http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059</msg>
+<status status="FAIL" starttime="20230328 11:16:10.002" endtime="20230328 11:16:10.356"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${status}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20230328 11:16:10.356" endtime="20230328 11:16:10.356"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${status}</arg>
+<arg>404</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230328 11:16:10.356" endtime="20230328 11:16:10.356"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230328 11:16:10.357" endtime="20230328 11:16:10.357"/>
+</kw>
+<status status="FAIL" starttime="20230328 11:16:10.002" endtime="20230328 11:16:10.357">HTTPError: 404 Client Error: Not Found for url: http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059</status>
+</test>
+<status status="FAIL" starttime="20230328 11:16:05.989" endtime="20230328 11:16:10.358"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="1" skip="0" id="s1" name="API testing">API testing</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

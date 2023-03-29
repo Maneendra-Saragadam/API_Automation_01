@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.9.13 on win32)" generated="20230329 10:20:37.133" rpa="false" schemaversion="3">
+<suite id="s1" name="API testing" source="d:\VS_Code\TestCases\API_testing.robot">
+<test id="s1-t1" name="TC_002 - Validate the invalid OBIS code" line="16">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230329 10:20:37.386" level="INFO">Creating Session using : alias=mysession, url=http://10.3.101.20:5530/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230329 10:20:37.386" endtime="20230329 10:20:37.393"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>${invalid_obis}</arg>
+<arg>params=ip=${ip_address}&amp;port=${port}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230329 10:20:37.544" level="INFO">GET Request : url=http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ path_url=/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230329 10:20:37.544" level="INFO">GET Response : url=http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059 
+ status=404, reason=Not Found 
+ headers={'Transfer-Encoding': 'chunked', 'Server': 'Microsoft-IIS/10.0', 'X-Powered-By': 'ASP.NET', 'Date': 'Wed, 29 Mar 2023 04:50:34 GMT'} 
+ body=None 
+ </msg>
+<msg timestamp="20230329 10:20:37.544" level="FAIL">HTTPError: 404 Client Error: Not Found for url: http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059</msg>
+<status status="FAIL" starttime="20230329 10:20:37.396" endtime="20230329 10:20:37.578"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20230329 10:20:37.578" endtime="20230329 10:20:37.579"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230329 10:20:37.579" endtime="20230329 10:20:37.580"/>
+</kw>
+<status status="FAIL" starttime="20230329 10:20:37.382" endtime="20230329 10:20:37.580">HTTPError: 404 Client Error: Not Found for url: http://10.3.101.20:5530/api/1.0.1.7.0.254?ip=2401:4900:4022:9d4d:0000:0000:0000:0002&amp;port=4059</status>
+</test>
+<status status="FAIL" starttime="20230329 10:20:37.143" endtime="20230329 10:20:37.584"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="API testing">API testing</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
